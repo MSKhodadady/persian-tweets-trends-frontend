@@ -1,0 +1,12 @@
+{
+    "deno.enable": false,
+    "cSpell.language": "en,en-GB,en-US,fa,fa-IR",
+    "cSpell.enableFiletypes": [
+        "vue"
+    ],
+    "cSpell.words": [
+        "iscrawl",
+        "ma",
+        "readonly"
+    ],
+}
