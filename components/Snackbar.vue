@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Component from 'vue-class-component'
-import Vue from 'vue'
+import Component from 'vue-class-component';
+import Vue from 'vue';
 
 @Component({})
 export default class Snackbar extends Vue {
@@ -20,13 +20,13 @@ export default class Snackbar extends Vue {
     this.$store.subscribe(
       (mutation, { snackbar: { content, color, timeout } }) => {
         if (mutation.type === 'snackbar/showMessage') {
-          this.message = content
-          this.color = color
-          this.show = true
-          this.timeout = timeout || 4000
+          this.message = content;
+          this.color = color;
+          this.show = true;
+          this.timeout = timeout || 4000;
         }
       }
-    )
+    );
   }
 }
 </script>

@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Comp from 'vue-class-component'
-import { TaskObj } from '~/types.ts'
+import Vue from 'vue';
+import Comp from 'vue-class-component';
+import { TaskObj } from '~/types.ts';
 
 @Comp({
   props: {
@@ -26,7 +26,7 @@ import { TaskObj } from '~/types.ts'
 })
 export default class Task extends Vue {
   get progress () {
-    return this.$props.task.progress || 100
+    return this.$props.task.progress || 100;
   }
 }
 </script>

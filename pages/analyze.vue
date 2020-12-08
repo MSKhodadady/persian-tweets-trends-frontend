@@ -21,7 +21,7 @@
     </div>
 
     <fab-buttons
-      :action-buttons="fabButtons"
+      :action-buttons="actionButtons"
     />
   </div>
 </template>
@@ -34,7 +34,7 @@ import Chart from 'chart.js';
 import colorInverter from 'invert-color';
 import { FabButton, ChartOption, MA, TrendMomentum, Momentum, TotalChartOption } from '../types';
 import urls from '../IFetch';
-import FabButtons from '~/components/fabButtons.vue';
+import FabButtons from '~/components/FabButtons.vue';
 
 @Component({
   components: {
@@ -42,7 +42,7 @@ import FabButtons from '~/components/fabButtons.vue';
   }
 })
 export default class AnalyzePage extends Vue {
-  fabButtons: FabButton[] = [
+  actionButtons: FabButton[] = [
     {
       text: 'Add Chart',
       icon: 'mdi-plus',
@@ -53,13 +53,12 @@ export default class AnalyzePage extends Vue {
   ]
 
   charts: TotalChartOption[] = []
-  // chartDatasets: ChartDataSets[] = []
   mainChart: Chart
 
   mounted () {
     this.mainChart = new Chart(this.$refs.chart as HTMLCanvasElement, {
       type: 'line',
-      data: { datasets: this.charts },
+      data: { datasets: [] },
       options: {
         scales: {
           xAxes: [{ type: 'time' }]
@@ -73,42 +72,39 @@ export default class AnalyzePage extends Vue {
       compName: 'ChartAddSheet',
       compProps: {
         actionCallback: (chartOption: ChartOption) => {
-          this.charts.push({
+          this.renderCharts({
             chartOption,
             data: null
-          });
-
-          this.renderCharts().then();
+          }).then();
         }
       }
     });
   }
 
-  async renderCharts () {
-    console.log('renderCharts called!');
-    for (const chart of this.charts) {
-      if (!chart.data) {
-        const res = await fetch(urls.chart.url, urls.chart.post(chart.chartOption));
-        const d = res.status === 200 && await res.json();
+  async renderCharts (chart: TotalChartOption) {
+    this.charts.push(chart);
 
-        if (d) {
-          const data: { count: string, date: string }[] = d.data;
-          const { since, until, 'chart-type': chartType, token, color } = chart.chartOption;
+    if (!chart.data) {
+      const res = await fetch(urls.chart.url, urls.chart.post(chart.chartOption));
+      const d = res.status === 200 && await res.json();
 
-          chart.data = data.map(d => ({ y: d.count, x: d.date }));
-          chart.label = `${token}-${chartType}-${since}->${until}`;
-          chart.borderColor = color;
-        }
+      if (d) {
+        const data: { count: string, date: string }[] = d.data;
+        const { since, until, 'chart-type': chartType, token, color } = chart.chartOption;
+
+        chart.data = data.map(d => ({ y: d.count, x: d.date }));
+        chart.label = `${token}-${chartType}-${since}->${until}`;
+        chart.borderColor = color;
       }
     }
 
-    this.mainChart.data.datasets = this.charts;
+    this.mainChart.data.datasets.push(chart);
     this.mainChart.update();
   }
 
   removeChart (c) {
     this.charts = this.charts.filter(chart => (chart !== c));
-    this.mainChart.data.datasets = this.charts;
+    this.mainChart.data.datasets = this.mainChart.data.datasets.filter(chart => (chart !== c));
 
     this.mainChart.update();
   }

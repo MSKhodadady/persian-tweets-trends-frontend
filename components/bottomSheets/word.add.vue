@@ -21,9 +21,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import urls from '../../IFetch'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import urls from '../../IFetch';
 
 @Component({})
 export default class WordAdd extends Vue {
@@ -32,20 +32,20 @@ export default class WordAdd extends Vue {
   deleteToken = false
 
   async addDict () {
-    this.$store.commit('bottomSheet/hide')
+    this.$store.commit('bottomSheet/hide');
 
     this.$store.commit('snackbar/showMessage', {
       content: `adding token: ${this.token} ...`,
       color: 'info'
-    })
+    });
 
     const res = await fetch(
-      urls.dictionary.url, urls.dictionary.put(this.token, this.deleteToken ? null : this.replaceWith))
+      urls.dictionary.url, urls.dictionary.put(this.token, this.deleteToken ? null : this.replaceWith));
 
-    const data = res.status === 200 && await res.json()
+    const data = res.status === 200 && await res.json();
 
     if (data) {
-      this.$store.commit('snackbar/showMessage', { content: `token: ${this.token} was added!`, color: 'info' })
+      this.$store.commit('snackbar/showMessage', { content: `token: ${this.token} was added!`, color: 'info' });
     }
   }
 }

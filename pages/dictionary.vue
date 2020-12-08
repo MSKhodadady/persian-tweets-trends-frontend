@@ -35,12 +35,12 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import 'vue-class-component/hooks';
 
-import fabButtons from '../components/fabButtons.vue';
+import FabButtons from '../components/FabButtons.vue';
 import urls from '../IFetch';
 import { DictionaryRow } from '../types';
 
 @Component({
-  components: { fabButtons }
+  components: { FabButtons }
 })
 export default class DictionaryPage extends Vue {
 

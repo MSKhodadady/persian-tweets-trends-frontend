@@ -16,35 +16,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import urls from '../../IFetch'
+import Vue from 'vue';
+import urls from '../../IFetch';
 export default Vue.extend({
   data () {
     return {
       username: ''
-    }
+    };
   },
 
   methods: {
     async addUser () {
-      this.$store.commit('bottomSheet/hide')
+      this.$store.commit('bottomSheet/hide');
 
       this.$store.commit('snackbar/showMessage', {
         content: `adding ${this.username} ...`,
         color: 'info'
-      })
+      });
 
-      const res = await fetch(urls.user.url, urls.user.put(this.username))
+      const res = await fetch(urls.user.url, urls.user.put(this.username));
 
-      const data = res.status === 200 && await res.json()
+      const data = res.status === 200 && await res.json();
       if (data.username === this.username) {
         this.$store.commit('snackbar/showMessage', {
           content: `${this.username} added!`,
           color: 'info'
-        })
+        });
       }
 
     }
   }
-})
+});
 </script>

@@ -115,10 +115,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { UserRow } from '../../types'
-import urls from '~/IFetch'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { UserRow } from '../../types';
+import urls from '~/IFetch';
 
 @Component({
   props: {
@@ -147,30 +147,30 @@ export default class UserDeleteTweet extends Vue {
   }
 
   async deleteTweets () {
-    const selectedUsers: UserRow[] = [...this.$props.selectedUsers]
-    const deleteSuccessUsers: string[] = []
+    const selectedUsers: UserRow[] = [...this.$props.selectedUsers];
+    const deleteSuccessUsers: string[] = [];
 
-    const since = `${this.sinceDate} ${this.sinceTime}:00`
-    const until = `${this.untilDate} ${this.untilTime}:00`
+    const since = `${this.sinceDate} ${this.sinceTime}:00`;
+    const until = `${this.untilDate} ${this.untilTime}:00`;
 
-    this.$store.commit('bottomSheet/hide')
+    this.$store.commit('bottomSheet/hide');
     this.$store.commit('snackbar/showMessage', {
       content: `deleting tweets of ${selectedUsers.length} user, since: ${since}, until: ${until}`
-    })
+    });
 
     for (const u of selectedUsers) {
-      const res = await fetch(urls.user.url, urls.user.deleteTweets(u.username, since, until))
+      const res = await fetch(urls.user.url, urls.user.deleteTweets(u.username, since, until));
 
-      const data = res.status === 200 && await res.json()
+      const data = res.status === 200 && await res.json();
       if (data && data.username === u.username) {
-        deleteSuccessUsers.push(u.username)
+        deleteSuccessUsers.push(u.username);
       }
     }
 
     this.$props.endActionCallback();
     this.$store.commit('snackbar/showMessage', {
       content: `tweets of (${deleteSuccessUsers.length} of ${selectedUsers.length} user) deleted successfully!`
-    })
+    });
   }
 
 }

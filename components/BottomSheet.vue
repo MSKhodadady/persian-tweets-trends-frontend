@@ -11,23 +11,21 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import 'vue-class-component/hooks';
 
-import ChartAddSheet from './buttonSheets/chart.add.vue';
+import ChartAddSheet from './bottomSheets/chart.add.vue';
 
-import WordAddSheet from '~/components/buttonSheets/word.add.vue';
-import WordDeleteSheet from '~/components/buttonSheets/word.delete.vue';
-import WordEditSheet from '~/components/buttonSheets/word.edit.vue';
+import WordAddSheet from '~/components/bottomSheets/word.add.vue';
+import WordDeleteSheet from '~/components/bottomSheets/word.delete.vue';
 
-import UserDeleteSheet from '~/components/buttonSheets/user.delete.vue';
-import UserCrawlRangeSheet from '~/components/buttonSheets/user.tweet.crawlrange.vue';
-import UserDeleteTweetSheet from '~/components/buttonSheets/user.tweet.deleterange.vue';
-import UserChangeCrawlSheet from '~/components/buttonSheets/user.changecrawl.vue';
-import UserAddSheet from '~/components/buttonSheets/user.add.vue';
+import UserDeleteSheet from '~/components/bottomSheets/user.delete.vue';
+import UserCrawlRangeSheet from '~/components/bottomSheets/user.tweet.crawlrange.vue';
+import UserDeleteTweetSheet from '~/components/bottomSheets/user.tweet.deleterange.vue';
+import UserChangeCrawlSheet from '~/components/bottomSheets/user.changecrawl.vue';
+import UserAddSheet from '~/components/bottomSheets/user.add.vue';
 
 @Component({
   components: {
     WordAddSheet,
     WordDeleteSheet,
-    WordEditSheet,
     UserDeleteSheet,
     UserCrawlRangeSheet,
     UserDeleteTweetSheet,

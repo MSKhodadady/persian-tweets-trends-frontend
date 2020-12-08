@@ -35,7 +35,7 @@
 
     <v-btn outlined block @click="loadMore">Load More</v-btn>
 
-    <fab-buttons-vue
+    <fab-buttons
       :action-buttons="actionButtons"
       :disabled="(btn) => !(noOneSelected || btn.isAdd)"
     />
@@ -47,17 +47,14 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import urls from '../IFetch';
 import { UserRow, FabButton } from '~/types.ts';
-import FabButtonsVue from '~/components/fabButtons.vue';
+import FabButtons from '~/components/FabButtons.vue';
 
 @Component({
   components: {
-    FabButtonsVue
+    FabButtons
   }
 })
 export default class UserPage extends Vue {
-
-  sheetOpen = false
-  currentSheet = ''
 
   pageStart = 0
   pageCount = 100
@@ -204,53 +201,6 @@ export default class UserPage extends Vue {
     }
   }
 
-  // closeSheet (btn: any) {
-  //   btn.sheetOpen = false
-  //   this.usernames.map((u) => { u.selected = false })
-  // }
-
-  endAction (action: any) {
-    switch (action.type) {
-      /* case UserActionTypes.deleteUser: {
-        const deletedUsernames: UserRow[] = action.deletedUsernames
-
-        this.usernames = this.usernames.filter((u) => {
-          if (deletedUsernames.includes(u)) {
-            return false
-          } else { return true }
-        })
-
-        break
-      } */
-
-      /* case UserActionTypes.changeCrawl: {
-        const { crawlSwitch, changedCrawlUsers } = action
-
-        this.usernames.map((u: UserRow) => {
-          if (changedCrawlUsers.includes(u)) {
-            u.iscrawl = crawlSwitch
-          }
-        })
-
-        break
-      } */
-
-      // case UserActionTypes.addUser: {
-      //   const { username } = action
-
-      //   this.usernames = [{
-      //     username,
-      //     iscrawl: true,
-      //     selected: false
-      //   }].concat(this.usernames)
-
-      //   break
-      // }
-
-      default:
-        break;
-    }
-  }
 }
 </script>
 
